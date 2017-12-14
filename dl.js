@@ -13,7 +13,7 @@ s.onload=function(){
 
 document.head.appendChild(s)
 
-dlfun=function(){
+dlfun=function(){ 
     // dl was loaded above
     dlfun.math= new dl.NDArrayMathGPU()
     dlfun.array=function(dt){
@@ -57,6 +57,21 @@ dlfun=function(){
             }
 
         }
+    }
+    dlfun.rand=function(n){
+        n=n||10
+        var y=[]
+        for(var i=0;i<n;i++){
+            y[i]=Math.random()
+        }
+        return y
+    }
+    dlfun.centropy=function(p){ // crossentropy
+        return -p.map(function(pi){
+            return pi*Math.log(pi)+(1-pi)*Math.log(1-pi)
+            }).reduce(function(p1,p2){
+                return p1+p2
+            })/p.length    
     }
 }
 
